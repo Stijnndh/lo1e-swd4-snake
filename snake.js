@@ -160,6 +160,13 @@ function spawnFood() {
     foodX = Math.floor(Math.random() * 20) * 20;
     foodY = Math.floor(Math.random() * 20) * 20;
 
+    for (let index = 0; index < snake.length; index++) {
+        if(snake[index].x == foodX && snake[index].y == foodY){
+            spawnFood(); 
+            
+        }
+    }
+
 }
 
 // Tekent de appel
