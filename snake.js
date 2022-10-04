@@ -14,10 +14,10 @@ let snake = [
 
 
 let food = [
-  {
-    x: 0,
-    y: 0
-  }
+    {
+        x: 0,
+        y: 0
+    }
 
 ]
 
@@ -29,7 +29,7 @@ let direction = null;
 
 // Tekent de achtergrond
 function drawBackground() {
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "lightgreen";
     ctx.fillRect(0, 0, 400, 400);
 }
 
@@ -93,10 +93,10 @@ function update() {
         // Score ophogen
         //Groeien
 
-snake.push({
-    x: tailX,
-    y: tailY
-})
+        snake.push({
+            x: tailX,
+            y: tailY
+        })
 
 
         spawnFood();
@@ -110,16 +110,21 @@ snake.push({
 // Veranderd de richting dat de snake beweegt
 function changeDirection(event) {
     if (event.code == 'ArrowUp') {
-        direction = 'up';
-    }
-    if (event.code == 'ArrowRight') {
-        direction = 'right';
-    }
-    if (event.code == 'ArrowLeft') {
-        direction = 'left';
-    }
-    if (event.code == 'ArrowDown') {
-        direction = 'down';
+        if (direction != 'down') {
+            direction = 'up';
+        }
+    } else if (event.code == 'ArrowRight') {
+        if (direction != 'left') {
+            direction = 'right';
+        }
+    } else if (event.code == 'ArrowLeft') {
+        if (direction != 'right') {
+            direction = 'left';
+        }
+    } else if (event.code == 'ArrowDown') {
+        if (direction != 'up') {
+            direction = 'down';
+        }
     }
 }
 
