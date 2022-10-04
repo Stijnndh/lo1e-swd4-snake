@@ -29,7 +29,7 @@ let direction = null;
 
 // Tekent de achtergrond
 function drawBackground() {
-    ctx.fillStyle = "lightgreen";
+    ctx.fillStyle = 'rgb(24, 255, 63)';
     ctx.fillRect(0, 0, 400, 400);
 }
 
@@ -47,9 +47,55 @@ function drawSnake() {
 // Snake verplaatsen
 function update() {
 
+    if(direction == null) {
+        return;
+    }
+
     let tailIndex = snake.length - 1;
     let tailX = snake[tailIndex].x;
     let tailY = snake[tailIndex].y;
+
+
+    let headX = snake[0].x;
+    let headY = snake[0].y;
+
+
+
+
+
+    if (direction == 'right') {
+        if (headX < 380) {
+            headX += 20;
+        } else {
+            gameOver();
+        }
+    } else if (direction == 'left') {
+        if (headX > 0) {
+            headX -= 20;
+        } else {
+            gameOver();
+        }
+
+    } else if (direction == 'down') {
+        if (headY < 380) {
+            headY += 20;
+        } else {
+            gameOver();
+        }
+    } else if (direction == 'up') {
+        if (headY > 0) {
+            headY -= 20;
+        } else {
+            gameOver();
+        }
+    }
+
+    for (let index = 0; index < snake.length; index++) {
+        if(snake[index].x == headX && snake[index].y == headY){
+            gameOver(); 
+            return;
+        }
+    }
 
 
     if (direction != null) {
@@ -60,34 +106,8 @@ function update() {
     }
 
 
-
-    if (direction == 'right') {
-        if (snake[0].x < 380) {
-            snake[0].x += 20;
-        } else {
-            gameOver();
-        }
-    } else if (direction == 'left') {
-        if (snake[0].x > 0) {
-            snake[0].x -= 20;
-        } else {
-            gameOver();
-        }
-
-    } else if (direction == 'down') {
-        if (snake[0].y < 380) {
-            snake[0].y += 20;
-        } else {
-            gameOver();
-        }
-    } else if (direction == 'up') {
-        if (snake[0].y > 0) {
-            snake[0].y -= 20;
-        } else {
-            gameOver();
-        }
-    }
-
+    snake[0].x = headX;
+    snake[0].y = headY;
     // Appel eten als positie van snake en food hetzelfde zijn
     if (foodX == snake[0].x && foodY == snake[0].y) {
         // Score ophogen
@@ -136,6 +156,7 @@ function gameOver() {
 
 // Geeft de appel een nieuwe plek 
 function spawnFood() {
+   
     foodX = Math.floor(Math.random() * 20) * 20;
     foodY = Math.floor(Math.random() * 20) * 20;
 
